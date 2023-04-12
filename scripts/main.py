@@ -367,10 +367,12 @@ while True:
             elif console_input.lower() == "n":
                 user_input = "EXIT"
                 break
-            else:
-                user_input = console_input
+            elif console_input.lower() == "f" or console_input.lower() == "ф":
+                user_input = utils.clean_input(Fore.MAGENTA + "Enter feedback:" + Style.RESET_ALL)                
                 command_name = "human_feedback"
                 break
+            else: 
+                print(f"Your response was incorrect, try again", flush=True)
 
         if user_input == "GENERATE NEXT COMMAND JSON":
             print_to_console(
@@ -389,17 +391,17 @@ while True:
 
     # Execute command
     if command_name.lower().startswith( "error" ):
-        result = f"Command {command_name} threw the following error: " + arguments
+        result = f"Команда {command_name} вернула следующую ошибку: " + arguments
     elif command_name == "human_feedback":
-        result = f"Human feedback: {user_input}"
+        result = f"Вместо того, чтобы разрешить тебе выполнить команду, пользователь написал следующий фидбек: {user_input}"
     else:
-        result = f"Command {command_name} returned: {cmd.execute_command(command_name, arguments)}"
+        result = f"Команда {command_name} вернула: {cmd.execute_command(command_name, arguments)}"
         if next_action_count > 0:
             next_action_count -= 1
 
-    memory_to_add = f"Assistant Reply: {assistant_reply} " \
-                    f"\nResult: {result} " \
-                    f"\nHuman Feedback: {user_input} "
+    memory_to_add = f"Ответ ассистента: {assistant_reply} " \
+                    f"\nРезультат: {result} " \
+                    f"\nФидбек от пользователя: {user_input} "
 
     memory.add(memory_to_add)
 
@@ -411,5 +413,5 @@ while True:
     else:
         full_message_history.append(
             chat.create_chat_message(
-                "system", "Unable to execute command"))
-        print_to_console("SYSTEM: ", Fore.YELLOW, "Unable to execute command")
+                "system", "Не возможно выполнить команду"))
+        print_to_console("SYSTEM: ", Fore.YELLOW, "Не возможно выполнить команду")

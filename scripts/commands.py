@@ -110,7 +110,7 @@ def execute_command(command_name, arguments):
         elif command_name == "task_complete":
             shutdown()
         else:
-            return f"Unknown command '{command_name}'. Please refer to the 'COMMANDS' list for available commands and only respond in the specified JSON format."
+            return f"Неизвестная команда '{command_name}'. Пожалуйста, обратись к списку 'КОМАНДЫ' для доступных команд и отвечай только в указанном формате JSON."
     # All errors, return "Error: + error message"
     except Exception as e:
         return "Error: " + str(e)

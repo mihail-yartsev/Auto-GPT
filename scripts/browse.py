@@ -76,13 +76,17 @@ def scrape_links(url):
     return format_hyperlinks(hyperlinks)
 
 
-def split_text(text, max_length=4097):
-    """Split text into chunks of a maximum length"""
+def split_text(text, max_length=4097, max_chunks=5):
+    """Split text into chunks of a maximum length and limit the number of chunks"""
     paragraphs = text.split("\n")
     current_length = 0
     current_chunk = []
+    chunk_count = 0
 
     for paragraph in paragraphs:
+        if chunk_count >= max_chunks:
+            break
+
         if current_length + len(paragraph) + 1 <= max_length:
             current_chunk.append(paragraph)
             current_length += len(paragraph) + 1
@@ -90,6 +94,7 @@ def split_text(text, max_length=4097):
             yield "\n".join(current_chunk)
             current_chunk = [paragraph]
             current_length = len(paragraph) + 1
+            chunk_count += 1
 
     if current_chunk:
         yield "\n".join(current_chunk)
