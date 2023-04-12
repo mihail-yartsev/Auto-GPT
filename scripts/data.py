@@ -9,7 +9,7 @@ def load_prompt():
         prompt_file_path = file_dir / "data" / "prompt.txt"
 
         # Load the prompt from data/prompt.txt
-        with open(prompt_file_path, "r") as prompt_file:
+        with open(prompt_file_path, "r", encoding="utf-8") as prompt_file:
             prompt = prompt_file.read()
 
         return prompt

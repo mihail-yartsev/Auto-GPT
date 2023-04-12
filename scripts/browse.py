@@ -76,7 +76,7 @@ def scrape_links(url):
     return format_hyperlinks(hyperlinks)
 
 
-def split_text(text, max_length=8192):
+def split_text(text, max_length=4097):
     """Split text into chunks of a maximum length"""
     paragraphs = text.split("\n")
     current_length = 0
@@ -99,7 +99,7 @@ def create_message(chunk, question):
     """Create a message for the user to summarize a chunk of text"""
     return {
         "role": "user",
-        "content": f"\"\"\"{chunk}\"\"\" Using the above text, please answer the following question: \"{question}\" -- if the question cannot be answered using the text, please summarize the text."
+        "content": f"\"\"\"{chunk}\"\"\" Используя текст выше, пожалуйста, ответь на следующий вопрос: \"{question}\" -- если на вопрос нельзя ответить, используя текст, пожалуйста, кратко перескажи текст."
     }
 
 def summarize_text(text, question):

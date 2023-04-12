@@ -46,7 +46,7 @@ class AIConfig:
         """
 
         try:
-            with open(config_file) as file:
+            with open(config_file, encoding='utf-8') as file:
                 config_params = yaml.load(file, Loader=yaml.FullLoader)
         except FileNotFoundError:
             config_params = {}
@@ -83,10 +83,10 @@ class AIConfig:
             full_prompt (str): A string containing the initial prompt for the user including the ai_name, ai_role and ai_goals.
         """
 
-        prompt_start = """Your decisions must always be made independently without seeking user assistance. Play to your strengths as an LLM and pursue simple strategies with no legal complications."""
+        prompt_start = """Твои решения всегда должны приниматься самостоятельно, без обращения за помощью к пользователю. Ты - LLM (Large language model, или Большая языковая модель). Играй на своих сильных сторонах LLM и преследуй простые стратегии без юридических сложностей (если нет такой необходимости)."""
 
         # Construct full prompt
-        full_prompt = f"You are {self.ai_name}, {self.ai_role}\n{prompt_start}\n\nGOALS:\n\n"
+        full_prompt = f"Ты - {self.ai_name}, {self.ai_role}\n{prompt_start}\n\nЦЕЛИ:\n\n"
         for i, goal in enumerate(self.ai_goals):
             full_prompt += f"{i+1}. {goal}\n"
 

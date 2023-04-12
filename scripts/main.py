@@ -170,10 +170,10 @@ def load_variables(config_file="config.yaml"):
         documents = yaml.dump(config, file)
 
     prompt = data.load_prompt()
-    prompt_start = """Your decisions must always be made independently without seeking user assistance. Play to your strengths as a LLM and pursue simple strategies with no legal complications."""
+    prompt_start = """Твои решения всегда должны приниматься самостоятельно, без обращения за помощью к пользователю. Ты - LLM (Large language model, или Большая языковая модель). Играй на своих сильных сторонах LLM и преследуй простые стратегии без юридических сложностей (если нет такой необходимости)."""
 
     # Construct full prompt
-    full_prompt = f"You are {ai_name}, {ai_role}\n{prompt_start}\n\nGOALS:\n\n"
+    full_prompt = f"Ты - {ai_name}, {ai_role}\n{prompt_start}\n\nЦЕЛИ:\n\n"
     for i, goal in enumerate(ai_goals):
         full_prompt += f"{i+1}. {goal}\n"
 
@@ -353,7 +353,7 @@ while True:
             flush=True)
         while True:
             console_input = utils.clean_input(Fore.MAGENTA + "Input:" + Style.RESET_ALL)
-            if console_input.lower() == "y":
+            if console_input.lower() == "y" or console_input.lower() == "+" or console_input.lower() == "":
                 user_input = "GENERATE NEXT COMMAND JSON"
                 break
             elif console_input.lower().startswith("y -"):
